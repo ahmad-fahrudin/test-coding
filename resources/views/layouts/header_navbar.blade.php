@@ -1,7 +1,7 @@
 <!--begin::Navbar-->
 <div class="app-navbar flex-shrink-0">
     <!--begin::Theme mode-->
-    <div class="app-navbar-item ms-1 ms-md-4">
+    {{-- <div class="app-navbar-item ms-1 ms-md-4">
         <!--begin::Menu toggle-->
         <a href="#"
             class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-35px h-35px"
@@ -79,7 +79,7 @@
             <!--end::Menu item-->
         </div>
         <!--end::Menu-->
-    </div>
+    </div> --}}
     <!--end::Theme mode-->
     <!--begin::User menu-->
     <div class="app-navbar-item ms-1 ms-md-4" id="kt_header_user_menu_toggle">
