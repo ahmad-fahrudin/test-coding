@@ -10,9 +10,6 @@
 
 <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 
-<script src="{{ asset('metronic/assets/js/custom/account/settings/signin-methods.js') }}"></script>
-<script src="{{ asset('metronic/assets/js/custom/account/settings/deactivate-account.js') }}"></script>
-
 <!--CKEditor Build Bundles:: Only include the relevant bundles accordingly-->
 <script src="{{ asset('metronic/assets/plugins/custom/ckeditor/ckeditor-classic.bundle.js') }}"></script>
 <script src="{{ asset('metronic/assets/plugins/custom/ckeditor/ckeditor-inline.bundle.js') }}"></script>

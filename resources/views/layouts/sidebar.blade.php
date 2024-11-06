@@ -53,6 +53,13 @@
                             <span class="menu-heading fw-bold text-uppercase fs-7">Master Data</span>
                         </div>
                     </div>
+
+                    <div class="menu-item">
+                        <a class="menu-link" href="{{ route('kelas.index') }}">
+                            <span class="menu-icon"><i class="bi bi-image-fill"></i></span>
+                            <span class="menu-title">Kelas Manage</span>
+                        </a>
+                    </div>
                     <!-- Logout Button -->
                     <form method="POST" action="{{ route('logout') }}" class="mt-4 text-center">
                         @csrf

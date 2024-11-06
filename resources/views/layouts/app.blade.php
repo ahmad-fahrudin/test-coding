@@ -123,10 +123,6 @@
     @include('layouts.bottom_script')
     {{-- end of bottom script --}}
 
-    {{-- bottom script --}}
-    @include('layouts.datatable_script')
-    {{-- end of bottom script --}}
-
     {{-- page script --}}
     @yield('page_script')
     {{-- end of page script --}}
