@@ -40,6 +40,8 @@
     @include('layouts.bottom_script')
     {{-- end of bottom script --}}
 
+    @include('sweetalert::alert')
+
     {{-- page script --}}
     @yield('page_script')
     {{-- end of page script --}}
