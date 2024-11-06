@@ -117,6 +117,7 @@
         </i>
     </div>
     <!--end::Scrolltop-->
+    @include('sweetalert::alert')
 
     {{-- bottom script --}}
     @include('layouts.bottom_script')
