@@ -99,20 +99,15 @@
                         <img alt="Logo" src="{{ asset('metronic/assets/media/avatars/300-3.jpg') }}" />
                     </div>
                     <!--end::Avatar-->
+                    @php
+                        $user = Auth::user();
+                    @endphp
                     <!--begin::Username-->
-                    {{-- <div class="d-flex flex-column">
+                    <div class="d-flex flex-column">
                         <div class="fw-bold d-flex align-items-center fs-5">{{ $user->name }}
-                            @if ($user->roles->isNotEmpty())
-                                @foreach ($user->roles as $role)
-                                    <span
-                                        class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">{{ $role->name }}</span>
-                                @endforeach
-                            @else
-                                <span class="badge badge-light-warning fw-bold fs-8 px-2 py-1 ms-2">No Role</span>
-                            @endif
                         </div>
                         <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">{{ $user->email }}</a>
-                    </div> --}}
+                    </div>
                     <!--end::Username-->
                 </div>
             </div>
