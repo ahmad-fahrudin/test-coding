@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GuruController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\ProfileController;
@@ -31,6 +32,18 @@ Route::middleware('auth')->group(function () {
         Route::put('/siswa/{id}', 'update')->name('siswa.update');
         Route::get('/siswa/show/{id}', 'show')->name('siswa.show');
         Route::delete('/siswa/{id}', 'destroy')->name('siswa.destroy');
+    });
+
+    // Guru Controller Routes
+    Route::controller(GuruController::class)->group(function () {
+        Route::get('/guru', 'index')->name('guru.index');
+        Route::get('/guru/data', 'getData')->name('guru.data');
+        Route::get('/guru/create', 'create')->name('guru.create');
+        Route::post('/guru', 'store')->name('guru.store');
+        Route::get('/guru/edit/{id}', 'edit')->name('guru.edit');
+        Route::put('/guru/{id}', 'update')->name('guru.update');
+        Route::get('/guru/show/{id}', 'show')->name('guru.show');
+        Route::delete('/guru/{id}', 'destroy')->name('guru.destroy');
     });
 });
 
