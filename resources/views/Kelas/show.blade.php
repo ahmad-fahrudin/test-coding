@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="card shadow-sm">
-        <div class="card-header bg-dark">
+        <div class="card-header bg-secondary">
             <h3 class="card-title">Kelas Detail</h3>
         </div>
         <div class="card-body">
