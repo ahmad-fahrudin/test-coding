@@ -43,4 +43,4 @@ php artisan serve
 ## Akun Default
 
 -   email: admin@gmail.com
--   Password: password123
+-   Password: admin123
