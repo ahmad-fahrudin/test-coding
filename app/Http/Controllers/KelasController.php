@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelas;
 use App\Services\KelasService;
 use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
@@ -113,5 +114,31 @@ class KelasController extends Controller
             toast('Error occurred while deleting kelas.', 'error')->timerProgressBar();
             return redirect()->back();
         }
+    }
+
+    public function siswaByKelas()
+    {
+        $kelasList = $this->kelasService->getKelasWithLimitedSiswa(10);
+        return view('siswa.list_by_kelas', compact('kelasList'));
+    }
+
+    public function guruByKelas()
+    {
+        $kelasList = $this->kelasService->getKelasWithGuru();
+        return view('guru.list_by_kelas', compact('kelasList'));
+    }
+
+    public function kelasList()
+    {
+        // Mengambil semua data kelas beserta relasi guru dan hanya 10 siswa pertama
+        $kelasList = Kelas::with([
+            'guru',
+            'siswa' => function ($query) {
+                $query->take(10); // Mengambil hanya 10 siswa pertama untuk setiap kelas
+            }
+        ])->get();
+
+        // Mengarahkan ke view dengan data kelas
+        return view('kelas.list_kelas', compact('kelasList'));
     }
 }

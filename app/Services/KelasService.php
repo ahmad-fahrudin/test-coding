@@ -37,4 +37,14 @@ class KelasService
     {
         return $this->kelasRepository->delete($id);
     }
+
+    public function getKelasWithLimitedSiswa(int $limit = 10)
+    {
+        return $this->kelasRepository->getKelasWithLimitedSiswa($limit);
+    }
+
+    public function getKelasWithGuru()
+    {
+        return $this->kelasRepository->getKelasWithGuru();
+    }
 }
