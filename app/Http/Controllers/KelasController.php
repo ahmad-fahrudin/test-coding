@@ -20,8 +20,18 @@ class KelasController extends Controller
 
     public function index()
     {
-        $kelas = $this->kelasService->getAllKelas();
-        return view('kelas.index', compact('kelas'));
+        if (request()->ajax()) {
+            $kelas = Kelas::select(['id', 'nama_kelas', 'deskripsi']);
+
+            return DataTables::of($kelas)
+                ->addColumn('actions', function ($kelas) {
+                    return view('kelas.partials.actions', compact('kelas'))->render();
+                })
+                ->rawColumns(['actions'])
+                ->toJson();
+        }
+
+        return view('kelas.index');
     }
 
     public function store(StoreKelasRequest $request)
