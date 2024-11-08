@@ -24,11 +24,6 @@ class KelasController extends Controller
         return view('kelas.index', compact('kelas'));
     }
 
-    public function create()
-    {
-        return view('kelas.create');
-    }
-
     public function store(StoreKelasRequest $request)
     {
         try {
@@ -37,30 +32,6 @@ class KelasController extends Controller
         } catch (\Exception $e) {
             Log::error('Error creating kelas: ' . $e->getMessage());
             return response()->json(['status' => 'error', 'message' => 'Error occurred while creating kelas.']);
-        }
-    }
-
-    public function show($id)
-    {
-        try {
-            $kelas = $this->kelasService->getKelasById($id);
-            return view('kelas.show', compact('kelas'));
-        } catch (\Exception $e) {
-            Log::error('Error fetching kelas details: ' . $e->getMessage());
-            toast('Error fetching kelas details.', 'error')->timerProgressBar();
-            return redirect()->back();
-        }
-    }
-
-    public function edit($id)
-    {
-        try {
-            $kelas = $this->kelasService->getKelasById($id);
-            return view('kelas.edit', compact('kelas'));
-        } catch (\Exception $e) {
-            Log::error('Error fetching kelas for editing: ' . $e->getMessage());
-            toast('Error fetching kelas for editing.', 'error')->timerProgressBar();
-            return redirect()->back();
         }
     }
 
