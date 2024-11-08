@@ -53,7 +53,7 @@ class GuruController extends Controller
 
     public function create()
     {
-        $kelas = Kelas::all();
+        $kelas = Kelas::whereDoesntHave('guru')->get();
         return view('guru.create', compact('kelas'));
     }
 
@@ -86,7 +86,9 @@ class GuruController extends Controller
     {
         try {
             $guru = $this->guruService->getGuruById($id);
-            $kelas = Kelas::all();
+            $kelas = Kelas::whereDoesntHave('guru')
+                ->orWhere('id', $guru->kelas_id) // Tambahkan kelas yang saat ini dipegang oleh guru ini
+                ->get();
             return view('guru.edit', compact('guru', 'kelas'));
         } catch (\Exception $e) {
             Log::error('Error fetching guru for editing: ' . $e->getMessage());

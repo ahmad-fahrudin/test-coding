@@ -33,17 +33,23 @@
                 <!-- Kelas Select -->
                 <div class="form-group mb-4">
                     <label for="kelas_id" class="fw-semibold fs-6 mb-2">Kelas:</label>
-                    <select class="form-control" id="kelas_id" name="kelas_id">
-                        <option value="">-- Select Class --</option>
-                        @foreach ($kelas as $kelas)
-                            <option value="{{ $kelas->id }}" {{ old('kelas_id') == $kelas->id ? 'selected' : '' }}>
-                                {{ $kelas->nama_kelas }}
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('kelas_id')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
+
+                    @if ($kelas->isEmpty())
+                        <p class="text-muted">Semua kelas sudah memiliki guru. Tidak ada kelas yang tersedia untuk dipilih.
+                        </p>
+                    @else
+                        <select class="form-control" id="kelas_id" name="kelas_id">
+                            <option value="">-- Pilih kelas --</option>
+                            @foreach ($kelas as $kls)
+                                <option value="{{ $kls->id }}" {{ old('kelas_id') == $kls->id ? 'selected' : '' }}>
+                                    {{ $kls->nama_kelas }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('kelas_id')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    @endif
                 </div>
 
                 <!-- Action Buttons -->

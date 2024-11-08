@@ -35,7 +35,7 @@
                 <div class="form-group mb-4">
                     <label for="kelas_id" class="fw-semibold fs-6 mb-2">Kelas:</label>
                     <select class="form-control" id="kelas_id" name="kelas_id">
-                        <option value="">-- Select Class --</option>
+                        <option value="">-- Pilih kelas --</option>
                         @foreach ($kelas as $kelas)
                             <option value="{{ $kelas->id }}"
                                 {{ old('kelas_id', $guru->kelas_id) == $kelas->id ? 'selected' : '' }}>
