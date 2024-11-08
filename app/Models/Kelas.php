@@ -15,10 +15,10 @@ class Kelas extends Model
 
     public function siswa()
     {
-        return $this->hasMany(Siswa::class);
+        return $this->hasMany(Siswa::class, 'kelas_id');
     }
     public function guru()
     {
-        return $this->hasMany(Guru::class);
+        return $this->hasOne(Guru::class, 'kelas_id');
     }
 }
