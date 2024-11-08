@@ -45,6 +45,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/guru/show/{id}', 'show')->name('guru.show');
         Route::delete('/guru/{id}', 'destroy')->name('guru.destroy');
     });
+
+    Route::get('/siswa/list-by-kelas', [KelasController::class, 'siswaByKelas'])->name('siswa.list_by_kelas');
+    Route::get('/guru/list-by-kelas', [KelasController::class, 'guruByKelas'])->name('guru.list_by_kelas');
+    Route::get('/kelas/list', [KelasController::class, 'kelasList'])->name('kelas.list');
 });
 
 require __DIR__ . '/auth.php';
