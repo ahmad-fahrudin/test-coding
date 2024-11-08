@@ -23,11 +23,15 @@
                                     <td class="px-2 text-center">{{ $index + 1 }}</td>
                                     <td class="px-2 text-start">{{ $kelas->nama_kelas }}</td>
                                     <td class="px-2 text-start">
-                                        <ul>
-                                            @foreach ($kelas->siswa as $siswa)
-                                                <li>{{ $siswa->nama }} ({{ $siswa->nis }})</li>
-                                            @endforeach
-                                        </ul>
+                                        @if ($kelas->siswa->isEmpty())
+                                            <span class="badge bg-secondary">Tidak ada siswa di kelas ini</span>
+                                        @else
+                                            <ul>
+                                                @foreach ($kelas->siswa as $siswa)
+                                                    <li>{{ $siswa->nama }} (NIS: {{ $siswa->nis }})</li>
+                                                @endforeach
+                                            </ul>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
