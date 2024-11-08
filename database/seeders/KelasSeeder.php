@@ -2,25 +2,26 @@
 
 namespace Database\Seeders;
 
-use App\Models\Kelas;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Facades\DB;
 
 class KelasSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
-    public function run()
+    public function run(): void
     {
-        $kelas = [
-            ['nama_kelas' => 'Kelas 1A', 'deskripsi' => 'Kelas untuk siswa tingkat 1A'],
-            ['nama_kelas' => 'Kelas 2B', 'deskripsi' => 'Kelas untuk siswa tingkat 2B'],
-            ['nama_kelas' => 'Kelas 3C', 'deskripsi' => 'Kelas untuk siswa tingkat 3C'],
-        ];
+        $tingkat = ['10', '11', '12'];
+        $subkelas = ['A', 'B', 'C', 'D'];
 
-        foreach ($kelas as $data) {
-            Kelas::create($data);
+        foreach ($tingkat as $t) {
+            foreach ($subkelas as $s) {
+                DB::table('kelas')->insert([
+                    'nama_kelas' => $t . $s,
+                    'deskripsi' => 'Kelas ' . $t . ' ' . $s,
+                ]);
+            }
         }
     }
 }

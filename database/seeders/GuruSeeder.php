@@ -2,25 +2,26 @@
 
 namespace Database\Seeders;
 
-use App\Models\Guru;
+use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Facades\DB;
 
 class GuruSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
-    public function run()
+    public function run(): void
     {
-        $guru = [
-            ['nama' => 'Ahmad', 'nip' => '1234567890'],
-            ['nama' => 'Budi', 'nip' => '2345678901'],
-            ['nama' => 'Citra', 'nip' => '3456789012'],
-        ];
+        $faker = Faker::create();
+        $kelasIds = DB::table('kelas')->pluck('id'); // Mengambil semua ID kelas
 
-        foreach ($guru as $data) {
-            Guru::create($data);
+        foreach ($kelasIds as $kelasId) {
+            DB::table('gurus')->insert([
+                'nama' => $faker->name,
+                'nip' => $faker->unique()->numerify('##########'), // NIP 10 digit unik
+                'kelas_id' => $kelasId,
+            ]);
         }
     }
 }
