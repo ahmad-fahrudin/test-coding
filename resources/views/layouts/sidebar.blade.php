@@ -54,24 +54,58 @@
                         </div>
                     </div>
 
+
                     <div class="menu-item">
                         <a class="menu-link" href="{{ route('kelas.index') }}">
-                            <span class="menu-icon"><i class="bi bi-image-fill"></i></span>
+                            <span class="menu-icon"><i class="bi bi-building"></i></span>
+                            <!-- Ikon building untuk Kelas -->
                             <span class="menu-title">Kelas Manage</span>
                         </a>
                     </div>
 
                     <div class="menu-item">
                         <a class="menu-link" href="{{ route('siswa.index') }}">
-                            <span class="menu-icon"><i class="bi bi-image-fill"></i></span>
+                            <span class="menu-icon"><i class="bi bi-people"></i></span> <!-- Ikon people untuk Siswa -->
                             <span class="menu-title">Siswa Manage</span>
                         </a>
                     </div>
 
                     <div class="menu-item">
                         <a class="menu-link" href="{{ route('guru.index') }}">
-                            <span class="menu-icon"><i class="bi bi-image-fill"></i></span>
+                            <span class="menu-icon"><i class="bi bi-person-badge"></i></span>
+                            <!-- Ikon person-badge untuk Guru -->
                             <span class="menu-title">Guru Manage</span>
+                        </a>
+                    </div>
+
+                    <!-- Addition -->
+                    <div class="menu-item pt-5">
+                        <div class="menu-content">
+                            <span class="menu-heading fw-bold text-uppercase fs-7">Addition</span>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <a class="menu-link" href="{{ route('guru.list_by_kelas') }}">
+                            <span class="menu-icon"><i class="bi bi-journal-text"></i></span>
+                            <!-- Ikon journal-text untuk List Guru -->
+                            <span class="menu-title">List Guru by Kelas</span>
+                        </a>
+                    </div>
+
+                    <div class="menu-item">
+                        <a class="menu-link" href="{{ route('siswa.list_by_kelas') }}">
+                            <span class="menu-icon"><i class="bi bi-journal-text"></i></span>
+                            <!-- Ikon journal-text untuk List Siswa -->
+                            <span class="menu-title">List Siswa by Kelas</span>
+                        </a>
+                    </div>
+
+                    <div class="menu-item">
+                        <a class="menu-link" href="{{ route('kelas.list') }}">
+                            <span class="menu-icon"><i class="bi bi-diagram-3"></i></span>
+                            <!-- Ikon diagram-3 untuk List Kelas -->
+                            <span class="menu-title">List Kelas Guru dan Siswa</span>
                         </a>
                     </div>
 
