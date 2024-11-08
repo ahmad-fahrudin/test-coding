@@ -20,32 +20,8 @@ class KelasController extends Controller
 
     public function index()
     {
-        return view('kelas.index');
-    }
-
-    public function getData()
-    {
-        try {
-            $kelas = $this->kelasService->getAllKelas();
-
-            return DataTables::of($kelas)
-                ->addColumn('action', function ($row) {
-                    return '
-                    <a href="' . route('kelas.show', $row->id) . '" class="btn btn-info btn-sm"><i class="bi bi-eye"></i></a>
-                    <a href="' . route('kelas.edit', $row->id) . '" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
-                    <form action="' . route('kelas.destroy', $row->id) . '" method="POST" style="display:inline-block;">
-                        ' . csrf_field() . method_field('DELETE') . '
-                        <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
-                    </form>';
-                })
-                ->addIndexColumn()
-                ->rawColumns(['action'])
-                ->make(true);
-        } catch (\Exception $e) {
-            Log::error('Error fetching kelas data: ' . $e->getMessage());
-            toast('Error fetching kelas data', 'error')->timerProgressBar();
-            return redirect()->back();
-        }
+        $kelas = $this->kelasService->getAllKelas();
+        return view('kelas.index', compact('kelas'));
     }
 
     public function create()
@@ -56,13 +32,11 @@ class KelasController extends Controller
     public function store(StoreKelasRequest $request)
     {
         try {
-            $this->kelasService->createKelas($request->validated());
-            toast('Kelas created successfully!', 'success')->timerProgressBar();
-            return redirect()->route('kelas.index');
+            $kelas = $this->kelasService->createKelas($request->validated());
+            return response()->json(['status' => 'success', 'message' => 'Kelas created successfully!', 'data' => $kelas]);
         } catch (\Exception $e) {
             Log::error('Error creating kelas: ' . $e->getMessage());
-            toast('Error occurred while creating kelas.', 'error')->timerProgressBar();
-            return redirect()->back();
+            return response()->json(['status' => 'error', 'message' => 'Error occurred while creating kelas.']);
         }
     }
 
@@ -93,13 +67,11 @@ class KelasController extends Controller
     public function update(UpdateKelasRequest $request, $id)
     {
         try {
-            $this->kelasService->updateKelas($id, $request->validated());
-            toast('Kelas updated successfully!', 'success')->timerProgressBar();
-            return redirect()->route('kelas.index');
+            $kelas = $this->kelasService->updateKelas($id, $request->validated());
+            return response()->json(['status' => 'success', 'message' => 'Kelas updated successfully!', 'data' => $kelas]);
         } catch (\Exception $e) {
             Log::error('Error updating kelas: ' . $e->getMessage());
-            toast('Error occurred while updating kelas.', 'error')->timerProgressBar();
-            return redirect()->back();
+            return response()->json(['status' => 'error', 'message' => 'Error occurred while updating kelas.']);
         }
     }
 
@@ -107,12 +79,10 @@ class KelasController extends Controller
     {
         try {
             $this->kelasService->deleteKelas($id);
-            toast('Kelas deleted successfully!', 'success')->timerProgressBar();
-            return redirect()->route('kelas.index');
+            return response()->json(['status' => 'success', 'message' => 'Kelas deleted successfully!']);
         } catch (\Exception $e) {
             Log::error('Error deleting kelas: ' . $e->getMessage());
-            toast('Error occurred while deleting kelas.', 'error')->timerProgressBar();
-            return redirect()->back();
+            return response()->json(['status' => 'error', 'message' => 'Error occurred while deleting kelas.']);
         }
     }
 
