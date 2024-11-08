@@ -8,7 +8,7 @@
         </div>
         <div class="card-body">
             <div class="card-toolbar mb-3">
-                <button type="button" class="btn btn-bg-primary btn-sm" data-bs-toggle="modal"
+                <button type="button" class="btn btn-bg-primary btn-sm text-white" data-bs-toggle="modal"
                     data-bs-target="#createModal">Tambah Baru</button>
             </div>
 
@@ -63,7 +63,8 @@
                         data: 'actions',
                         name: 'actions',
                         orderable: false,
-                        searchable: false
+                        searchable: false,
+                        className: 'text-end'
                     }
                 ]
             });
@@ -99,7 +100,7 @@
                         if (response.status === 'success') {
                             $('#editModal').modal('hide'); // Tutup modal setelah update
                             table.ajax.reload(null,
-                            false); // Reload data tabel tanpa refresh halaman
+                                false); // Reload data tabel tanpa refresh halaman
                             alert(response.message);
                         } else {
                             alert(response.message);

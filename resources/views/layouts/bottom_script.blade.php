@@ -8,4 +8,4 @@
 <script src="{{ asset('metronic/assets/js/scripts.bundle.js') }}"></script>
 <!--end::Global Javascript Bundle-->
 
-<script src="{{ asset('metronic/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+<script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
