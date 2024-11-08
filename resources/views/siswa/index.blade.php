@@ -31,6 +31,7 @@
     </div>
     @include('siswa.modal')
     @include('siswa.modal-edit')
+    @include('siswa.modal-show')
 @endsection
 
 @section('page_script')
@@ -86,6 +87,18 @@
                 $('#edit_nama').val(nama);
                 $('#edit_nis').val(nis);
                 $('#edit_kelas_id').val(kelas_id);
+            });
+
+            // Ketika tombol Show ditekan
+            $(document).on('click', '.show-btn', function() {
+                let nama = $(this).data('nama');
+                let nis = $(this).data('nis');
+                let kelas = $(this).data('kelas');
+
+                // Isi data ke dalam Show Modal
+                $('#show_nama').val(nama);
+                $('#show_nis').val(nis);
+                $('#show_kelas').val(kelas);
             });
 
             // Fungsi Delete

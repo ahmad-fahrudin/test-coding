@@ -30,6 +30,7 @@
     </div>
     @include('kelas.modal-create')
     @include('kelas.modal-edit')
+    @include('kelas.modal-show')
 @endsection
 
 @section('page_script')
@@ -77,6 +78,17 @@
                 $('#edit_nama_kelas').val(nama_kelas);
                 $('#edit_deskripsi').val(deskripsi);
             });
+
+            // Ketika tombol Show ditekan
+            $(document).on('click', '.show-btn', function() {
+                let nama_kelas = $(this).data('nama_kelas');
+                let deskripsi = $(this).data('deskripsi');
+
+                // Isi data ke dalam Show Modal
+                $('#show_nama_kelas').val(nama_kelas);
+                $('#show_deskripsi').val(deskripsi);
+            });
+
 
             // Update Data
             $('#editForm').on('submit', function(e) {

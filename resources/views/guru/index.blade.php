@@ -31,6 +31,7 @@
     </div>
     @include('guru.modal-create')
     @include('guru.modal-edit')
+    @include('guru.modal-show')
 @endsection
 
 @section('page_script')
@@ -86,6 +87,18 @@
                 $('#edit_nama').val(nama);
                 $('#edit_nip').val(nip);
                 $('#edit_kelas_id').val(kelas_id);
+            });
+
+            // Ketika tombol Show ditekan
+            $(document).on('click', '.show-btn', function() {
+                let nama = $(this).data('nama');
+                let nip = $(this).data('nip');
+                let kelas = $(this).data('kelas');
+
+                // Isi data ke dalam Show Modal
+                $('#show_nama').val(nama);
+                $('#show_nip').val(nip);
+                $('#show_kelas').val(kelas);
             });
 
             // Fungsi Update
