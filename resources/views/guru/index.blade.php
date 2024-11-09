@@ -29,9 +29,9 @@
             </div>
         </div>
     </div>
-    @include('guru.modal-create')
-    @include('guru.modal-edit')
-    @include('guru.modal-show')
+    @include('guru.modals.modal-create')
+    @include('guru.modals.modal-edit')
+    @include('guru.modals.modal-show')
 @endsection
 
 @section('page_script')
