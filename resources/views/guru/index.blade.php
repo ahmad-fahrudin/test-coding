@@ -73,6 +73,15 @@
             // Kosongkan form di dalam Create Modal ketika modal ditutup
             $('#createModal').on('hidden.bs.modal', function() {
                 $(this).find('form')[0].reset();
+                $('.form-control').removeClass('is-invalid');
+                $('.invalid-feedback').remove();
+            });
+
+            // Kosongkan form di dalam Edit Modal ketika modal ditutup
+            $('#editModal').on('hidden.bs.modal', function() {
+                $(this).find('form')[0].reset();
+                $('.form-control').removeClass('is-invalid');
+                $('.invalid-feedback').remove();
             });
 
             // Ketika tombol Edit ditekan
@@ -101,57 +110,9 @@
                 $('#show_kelas').val(kelas);
             });
 
-            // Fungsi Update
-            $('#editForm').on('submit', function(e) {
-                e.preventDefault();
-                let id = $('#edit_id').val(); // Pastikan id diambil dengan benar dari form
-                $.ajax({
-                    url: '/guru/' + id,
-                    method: 'PUT',
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        if (response.status === 'success') {
-                            $('#editModal').modal('hide'); // Tutup modal setelah update
-                            table.ajax.reload(null,
-                                false); // Reload data tabel tanpa refresh halaman
-                            alert(response.message);
-                        } else {
-                            alert(response.message);
-                        }
-                    },
-                    error: function(xhr) {
-                        console.log("Error:", xhr.responseText);
-                    }
-                });
-            });
-
-
-            // Fungsi Delete
-            $(document).on('click', '.delete-btn', function() {
-                let id = $(this).data('id');
-                if (confirm('Are you sure you want to delete this record?')) {
-                    $.ajax({
-                        url: '/guru/' + id,
-                        method: 'DELETE',
-                        data: {
-                            _token: '{{ csrf_token() }}'
-                        },
-                        success: function(response) {
-                            console.log("Delete success response:", response);
-
-                            if (response.status === 'success') {
-                                table.ajax.reload(null, false);
-                            }
-                            alert(response.message);
-                        }
-                    });
-                }
-            });
-
-            // Fungsi Create
+            // Fungsi Create dengan Toastr
             $('#createForm').on('submit', function(e) {
                 e.preventDefault();
-                console.log("Create form submit triggered");
 
                 // Kosongkan pesan error sebelumnya
                 $('.form-control').removeClass('is-invalid');
@@ -162,19 +123,16 @@
                     method: 'POST',
                     data: $(this).serialize(),
                     success: function(response) {
-                        console.log("Create success response:", response);
-
                         if (response.status === 'success') {
                             $('#createModal').modal('hide');
                             table.ajax.reload(null, false);
-                            alert(response.message);
+                            toastr.success(response.message, 'Success');
                         } else {
-                            alert(response.message);
+                            toastr.warning(response.message, 'Warning');
                         }
                     },
                     error: function(xhr) {
                         if (xhr.status === 422) {
-                            // Tampilkan pesan error dari validasi
                             let errors = xhr.responseJSON.errors;
                             for (let key in errors) {
                                 let input = $(`[name="${key}"]`);
@@ -182,11 +140,84 @@
                                 input.after(
                                     `<div class="invalid-feedback">${errors[key][0]}</div>`);
                             }
+                            toastr.error('Please correct the highlighted errors and try again.',
+                                'Validation Error');
                         } else {
-                            console.log("Create error:", xhr.responseText);
+                            toastr.error(
+                                'An unexpected error occurred. Please try again later.',
+                                'Error');
                         }
                     }
                 });
+            });
+
+            // Fungsi Update dengan Toastr
+            $('#editForm').on('submit', function(e) {
+                e.preventDefault();
+                let id = $('#edit_id').val();
+
+                // Kosongkan pesan error sebelumnya
+                $('.form-control').removeClass('is-invalid');
+                $('.invalid-feedback').remove();
+
+                $.ajax({
+                    url: '/guru/' + id,
+                    method: 'PUT',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            $('#editModal').modal('hide');
+                            table.ajax.reload(null, false);
+                            toastr.success(response.message, 'Updated');
+                        } else {
+                            toastr.warning(response.message, 'Warning');
+                        }
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 422) {
+                            let errors = xhr.responseJSON.errors;
+                            for (let key in errors) {
+                                let input = $(`[name="${key}"]`);
+                                input.addClass('is-invalid');
+                                input.after(
+                                    `<div class="invalid-feedback">${errors[key][0]}</div>`);
+                            }
+                            toastr.error('Please correct the highlighted errors and try again.',
+                                'Validation Error');
+                        } else {
+                            toastr.error(
+                                'An unexpected error occurred. Please try again later.',
+                                'Error');
+                        }
+                    }
+                });
+            });
+
+            // Fungsi Delete dengan Toastr
+            $(document).on('click', '.delete-btn', function() {
+                let id = $(this).data('id');
+                if (confirm('Are you sure you want to delete this record?')) {
+                    $.ajax({
+                        url: '/guru/' + id,
+                        method: 'DELETE',
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            if (response.status === 'success') {
+                                table.ajax.reload(null, false);
+                                toastr.success(response.message, 'Deleted');
+                            } else {
+                                toastr.warning(response.message, 'Warning');
+                            }
+                        },
+                        error: function(xhr) {
+                            toastr.error(
+                                'An unexpected error occurred. Please try again later.',
+                                'Error');
+                        }
+                    });
+                }
             });
         });
     </script>

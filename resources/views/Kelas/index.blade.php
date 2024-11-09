@@ -66,6 +66,15 @@
             // Kosongkan form di dalam Create Modal ketika modal ditutup
             $('#createModal').on('hidden.bs.modal', function() {
                 $(this).find('form')[0].reset();
+                $('.form-control').removeClass('is-invalid');
+                $('.invalid-feedback').remove();
+            });
+
+            // Kosongkan form di dalam Edit Modal ketika modal ditutup
+            $('#editModal').on('hidden.bs.modal', function() {
+                $(this).find('form')[0].reset();
+                $('.form-control').removeClass('is-invalid');
+                $('.invalid-feedback').remove();
             });
 
             // Ketika tombol Edit ditekan
@@ -84,16 +93,19 @@
                 let nama_kelas = $(this).data('nama_kelas');
                 let deskripsi = $(this).data('deskripsi');
 
-                // Isi data ke dalam Show Modal
                 $('#show_nama_kelas').val(nama_kelas);
                 $('#show_deskripsi').val(deskripsi);
             });
 
-
-            // Update Data
+            // Fungsi Update dengan Toastr
             $('#editForm').on('submit', function(e) {
                 e.preventDefault();
                 let id = $('#edit_id').val();
+
+                // Kosongkan pesan error sebelumnya
+                $('.form-control').removeClass('is-invalid');
+                $('.invalid-feedback').remove();
+
                 $.ajax({
                     url: '/kelas/' + id,
                     method: 'PUT',
@@ -102,18 +114,32 @@
                         if (response.status === 'success') {
                             $('#editModal').modal('hide');
                             table.ajax.reload(null, false);
-                            alert(response.message);
+                            toastr.success(response.message, 'Updated');
                         } else {
-                            alert(response.message);
+                            toastr.warning(response.message, 'Warning');
                         }
                     },
                     error: function(xhr) {
-                        console.log("Error:", xhr.responseText);
+                        if (xhr.status === 422) {
+                            let errors = xhr.responseJSON.errors;
+                            for (let key in errors) {
+                                let input = $(`[name="${key}"]`);
+                                input.addClass('is-invalid');
+                                input.after(
+                                    `<div class="invalid-feedback">${errors[key][0]}</div>`);
+                            }
+                            toastr.error('Please correct the highlighted errors and try again.',
+                                'Validation Error');
+                        } else {
+                            toastr.error(
+                                'An unexpected error occurred. Please try again later.',
+                                'Error');
+                        }
                     }
                 });
             });
 
-            // Fungsi Delete
+            // Fungsi Delete dengan Toastr
             $(document).on('click', '.delete-btn', function() {
                 let id = $(this).data('id');
                 if (confirm('Are you sure you want to delete this record?')) {
@@ -126,16 +152,28 @@
                         success: function(response) {
                             if (response.status === 'success') {
                                 table.ajax.reload(null, false);
+                                toastr.success(response.message, 'Deleted');
+                            } else {
+                                toastr.warning(response.message, 'Warning');
                             }
-                            alert(response.message);
+                        },
+                        error: function(xhr) {
+                            toastr.error(
+                                'An unexpected error occurred. Please try again later.',
+                                'Error');
                         }
                     });
                 }
             });
 
-            // Fungsi Create
+            // Fungsi Create dengan Toastr
             $('#createForm').on('submit', function(e) {
                 e.preventDefault();
+
+                // Kosongkan pesan error sebelumnya
+                $('.form-control').removeClass('is-invalid');
+                $('.invalid-feedback').remove();
+
                 $.ajax({
                     url: '{{ route('kelas.store') }}',
                     method: 'POST',
@@ -144,13 +182,27 @@
                         if (response.status === 'success') {
                             $('#createModal').modal('hide');
                             table.ajax.reload(null, false);
-                            alert(response.message);
+                            toastr.success(response.message, 'Success');
                         } else {
-                            alert(response.message);
+                            toastr.warning(response.message, 'Warning');
                         }
                     },
                     error: function(xhr) {
-                        console.log("Error:", xhr.responseText);
+                        if (xhr.status === 422) {
+                            let errors = xhr.responseJSON.errors;
+                            for (let key in errors) {
+                                let input = $(`[name="${key}"]`);
+                                input.addClass('is-invalid');
+                                input.after(
+                                    `<div class="invalid-feedback">${errors[key][0]}</div>`);
+                            }
+                            toastr.error('Please correct the highlighted errors and try again.',
+                                'Validation Error');
+                        } else {
+                            toastr.error(
+                                'An unexpected error occurred. Please try again later.',
+                                'Error');
+                        }
                     }
                 });
             });

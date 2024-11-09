@@ -9,3 +9,6 @@
 <!--end::Global Stylesheets Bundle-->
 
 <link href="{{ asset('metronic/assets/css/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css" />
+
+<!-- Toastr CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
