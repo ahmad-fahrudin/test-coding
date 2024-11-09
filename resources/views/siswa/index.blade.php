@@ -17,7 +17,7 @@
                     <table class="table align-middle border rounded table-sm fs-7" id="siswa-table">
                         <thead>
                             <tr class="text-start text-gray-500 fw-bold text-uppercase">
-                                <th class="px-2 text-center">No</th>
+                                <th class="px-2 text-center">ID</th>
                                 <th class="px-2 text-start">Nama</th>
                                 <th class="px-2 text-start">NIS</th>
                                 <th class="px-2 text-start">Kelas</th>
