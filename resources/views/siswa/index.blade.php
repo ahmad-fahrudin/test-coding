@@ -120,10 +120,13 @@
                     });
                 }
             });
-
             // Fungsi Create
             $('#createForm').on('submit', function(e) {
                 e.preventDefault();
+                // Kosongkan pesan error sebelumnya
+                $('.form-control').removeClass('is-invalid');
+                $('.invalid-feedback').remove();
+
                 $.ajax({
                     url: '{{ route('siswa.store') }}',
                     method: 'POST',
@@ -138,7 +141,18 @@
                         }
                     },
                     error: function(xhr) {
-                        console.log("Error:", xhr.responseText);
+                        if (xhr.status === 422) {
+                            // Tampilkan pesan error dari validasi
+                            let errors = xhr.responseJSON.errors;
+                            for (let key in errors) {
+                                let input = $(`[name="${key}"]`);
+                                input.addClass('is-invalid');
+                                input.after(
+                                    `<div class="invalid-feedback">${errors[key][0]}</div>`);
+                            }
+                        } else {
+                            console.log("Error:", xhr.responseText);
+                        }
                     }
                 });
             });

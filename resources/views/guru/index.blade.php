@@ -153,6 +153,10 @@
                 e.preventDefault();
                 console.log("Create form submit triggered");
 
+                // Kosongkan pesan error sebelumnya
+                $('.form-control').removeClass('is-invalid');
+                $('.invalid-feedback').remove();
+
                 $.ajax({
                     url: '{{ route('guru.store') }}',
                     method: 'POST',
@@ -169,7 +173,18 @@
                         }
                     },
                     error: function(xhr) {
-                        console.log("Create error:", xhr.responseText);
+                        if (xhr.status === 422) {
+                            // Tampilkan pesan error dari validasi
+                            let errors = xhr.responseJSON.errors;
+                            for (let key in errors) {
+                                let input = $(`[name="${key}"]`);
+                                input.addClass('is-invalid');
+                                input.after(
+                                    `<div class="invalid-feedback">${errors[key][0]}</div>`);
+                            }
+                        } else {
+                            console.log("Create error:", xhr.responseText);
+                        }
                     }
                 });
             });
