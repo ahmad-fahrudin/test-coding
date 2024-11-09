@@ -18,7 +18,7 @@
             </button>
         </li>
         <li>
-            <button class="dropdown-item delete-btn" data-id="{{ $kelas->id }}">
+            <button class="dropdown-item text-danger delete-btn" data-id="{{ $kelas->id }}">
                 <i class="fas fa-trash-alt me-2"></i>Delete
             </button>
         </li>
