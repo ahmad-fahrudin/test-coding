@@ -28,9 +28,9 @@
             </div>
         </div>
     </div>
-    @include('kelas.modal-create')
-    @include('kelas.modal-edit')
-    @include('kelas.modal-show')
+    @include('kelas.modals.modal-create')
+    @include('kelas.modals.modal-edit')
+    @include('kelas.modals.modal-show')
 @endsection
 
 @section('page_script')
