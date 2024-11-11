@@ -78,6 +78,14 @@
                         </a>
                     </div>
 
+                    <div class="menu-item">
+                        <a class="menu-link" href="{{ route('orang_tua.index') }}">
+                            <span class="menu-icon"><i class="bi bi-person-badge"></i></span>
+                            <!-- Ikon person-badge untuk Guru -->
+                            <span class="menu-title">Orang Tua Manage</span>
+                        </a>
+                    </div>
+
                     <!-- Addition -->
                     <div class="menu-item pt-5">
                         <div class="menu-content">
