@@ -6,6 +6,7 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OrangTuaController;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -45,6 +46,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/guru/show/{id}', 'show')->name('guru.show');
         Route::delete('/guru/{id}', 'destroy')->name('guru.destroy');
     });
+
+    Route::controller(OrangTuaController::class)->group(function () {
+        Route::get('/orang-tua', 'index')->name('orang_tua.index');
+        Route::post('/orang-tua', 'store')->name('orang_tua.store');
+        Route::put('/orang-tua/{id}', 'update')->name('orang_tua.update');
+        Route::delete('/orang-tua/{id}', 'destroy')->name('orang_tua.destroy');
+    });
+
 
     Route::get('/siswa/list-by-kelas', [KelasController::class, 'siswaByKelas'])->name('siswa.list_by_kelas');
     Route::get('/guru/list-by-kelas', [KelasController::class, 'guruByKelas'])->name('guru.list_by_kelas');
